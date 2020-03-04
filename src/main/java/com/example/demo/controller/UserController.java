@@ -1,8 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.product.Product;
 import com.example.demo.user.User;
 import com.example.demo.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 public class UserController {
@@ -18,19 +22,15 @@ public class UserController {
     }
 
     @GetMapping(value = "/user")
-    public void selectAllUsers(){
-        for (User user : userService.findAllUsers()) {
-            System.out.println("name :" + user.getName() + " ," +
-                    "surname :" + user.getSurname() + " ," +
-                    "age :" + user.getAge() + " ," + "username :"
-                    + user.getUsername() + " ," + "password :" +
-                    user.getPassword());
-        }
+    public ResponseEntity<ArrayList<User>> selectAllUsers(){
+        ArrayList<User> users = userService.findAllUsers();
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping(value = "/user/{id}")
-    public void findUserById(@PathVariable int id){
-        System.out.println(userService.findUserById(id));
+    public ResponseEntity<User> findUserById(@PathVariable int id){
+        User user = userService.findUserById(id);
+        return ResponseEntity.ok(user);
     }
 
     @PutMapping(value = "user/{id}")
@@ -44,7 +44,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/login/{username}/{password}")
-    public void login(@PathVariable String username, @PathVariable String password){
-        System.out.println(userService.login(username, password));
+    public ResponseEntity<Boolean> login(@PathVariable String username, @PathVariable String password){
+        boolean login = userService.login(username, password);
+        return ResponseEntity.ok(login);
     }
 }

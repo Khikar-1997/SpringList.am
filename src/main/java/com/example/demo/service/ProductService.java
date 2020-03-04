@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class ProductService {
     public void create(Product product) {
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL, MariaDbConstant.USER, MariaDbConstant.PASS)) {
-            String query = "INSERT INTO product(name,prise,type,uuid)VALUES(?,?,?,?)";
+            String query = "INSERT INTO product(name,prise,type)VALUES(?,?,?,?)";
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setString(1, product.getName());
             preparedStatement.setDouble(2, product.getPrise());

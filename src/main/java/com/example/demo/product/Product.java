@@ -50,7 +50,7 @@ public class Product {
     }
 
     public void setUuid(String uuid) {
-        this.uuid = uuid;
+        this.uuid = UUID.randomUUID().toString();
     }
 
     @Override

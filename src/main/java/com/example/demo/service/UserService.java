@@ -94,6 +94,7 @@ public class UserService {
 
     public boolean login(String username, String password) {
         User user = new User();
+
         try (Connection conn = DriverManager.getConnection(MariaDbConstant.DB_URL, MariaDbConstant.USER, MariaDbConstant.PASS)) {
             String query = "SELECT password FROM user WHERE username = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(query);

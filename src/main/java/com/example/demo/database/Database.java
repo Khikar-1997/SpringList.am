@@ -57,7 +57,7 @@ public class Database {
                     "    'COMPUTERS'," +
                     "    'CARS'," +
                     "    'ELECTRONICS'," +
-                    "    'REALTY')," +
+                    "    'REALTY'), " +
                     "uuid VARCHAR(255) NOT NULL ," +
                     "PRIMARY KEY (id)" +
                     ");";

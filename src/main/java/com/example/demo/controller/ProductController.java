@@ -2,7 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.product.Product;
 import com.example.demo.service.ProductService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 public class ProductController {
@@ -13,38 +16,36 @@ public class ProductController {
     }
 
     @PostMapping(value = "/product")
-    public void create(@RequestBody Product product){
+    public void create(@RequestBody Product product) {
         productService.create(product);
     }
 
     @GetMapping(value = "/product")
-    public void selectAllProducts(){
-        for (Product product : productService.selectAllProducts()) {
-            System.out.println("name :" + product.getName() + " ," + "prise :" + product.getPrise() +
-                    " ," + "type :" + product.getType() + " ," + "uuid :" +
-                    product.getUuid());
-        }
+    public ResponseEntity<ArrayList<Product>> selectAllProducts() {
+        ArrayList<Product> products = productService.selectAllProducts();
+        return ResponseEntity.ok(products);
     }
 
     @GetMapping(value = "/product/{id}")
-    public void findProductById(@PathVariable int id){
-        System.out.println(productService.findProductById(id));
+    public ResponseEntity<Product> findProductById(@PathVariable int id) {
+        Product product = productService.findProductById(id);
+        return ResponseEntity.ok(product);
     }
 
     @PutMapping(value = "/product/{id}")
-    public @ResponseBody void update(@PathVariable int id,@RequestBody Product product){
-        productService.update(id,product);
+    public @ResponseBody
+    void update(@PathVariable int id, @RequestBody Product product) {
+        productService.update(id, product);
     }
 
     @DeleteMapping(value = "/product/{id}")
-    public void delete(@PathVariable int id){
+    public void delete(@PathVariable int id) {
         productService.delete(id);
     }
 
     @GetMapping(value = "/product/search/{search}")
-    public void search(@PathVariable String search){
-        for (Product product : productService.serch(search)) {
-            System.out.println(product.getName());
-        }
+    public ResponseEntity<ArrayList<Product>> search(@PathVariable String search) {
+        ArrayList<Product> products = productService.serch(search);
+        return ResponseEntity.ok(products);
     }
 }
